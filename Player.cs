@@ -55,11 +55,14 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
-        ////Player leaves the screen vertically
+        
+        ////Player leaves the screen vertically (REMOVED)
         //if(transform.position.y > verticalScreenLimit || transform.position.y <= -verticalScreenLimit)
         //{
         //    transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
         //}
+
+        // Vertical boundary for if player tries to fly up to the top half of the screen or below screen bounds
         if (transform.position.y > 0)
         {
             transform.position = new Vector2(transform.position.x, 0);
@@ -72,3 +75,4 @@ public class Player : MonoBehaviour
 
     }
 }
+
