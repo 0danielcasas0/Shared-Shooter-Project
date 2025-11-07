@@ -25,8 +25,31 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(enemyOnePrefab, new Vector3(Random.Range(-9f, 9f), 6.5f, 0), Quaternion.identity);
     }
+    
     void CreateEnemyTwo()
     {
         Instantiate(enemyTwoPrefab, new Vector3(Random.Range(-9f, 9f), 6.5f, 0), Quaternion.identity);
     }
+    
+    void CreateSky()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Instantiate(cloudPrefab, new Vector3(Random.Range(-horizontalScreenSize, horizontalScreenSize), Random.Range(-verticalScreenSize, verticalScreenSize), 0), Quaternion.identity);
+        }
+        
+    }
+    // Adds score and updates score text
+    public void AddScore(int earnedScore)
+    {
+        score = score + earnedScore;
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    // Updates lives text
+    public void ChangeLivesText (int currentLives)
+    {
+        livesText.text = "Lives: " + currentLives;
+    }
 }
+
