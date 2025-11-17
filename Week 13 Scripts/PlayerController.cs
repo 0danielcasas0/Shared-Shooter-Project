@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public GameObject thrusterPrefab;
     public GameObject shieldPrefab;
 
+    private float verticalScreenLimit = -3.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,7 +116,7 @@ public class PlayerController : MonoBehaviour
                     {
                         //Do nothing
                     }
-                    else;
+                    else
                     {
                         shieldPrefab.SetActive(true);
                     }
@@ -148,21 +150,35 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
+        //Read the input from the player
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+        //Move the player
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * Time.deltaTime * speed);
 
         float horizontalScreenSize = gameManager.horizontalScreenSize;
-        float verticalScreenSize = gameManager.verticalScreenSize;
 
+        //Player leaves the screen horizontally
         if (transform.position.x <= -horizontalScreenSize || transform.position.x > horizontalScreenSize)
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
 
-        if (transform.position.y <= -verticalScreenSize || transform.position.y > verticalScreenSize)
+        ////Player leaves the screen vertically (REMOVED)
+        //if(transform.position.y > verticalScreenLimit || transform.position.y <= -verticalScreenLimit)
+        //{
+        //    transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
+        //}
+
+        // Vertical boundary for if player tries to fly up to the top half of the screen or below screen bounds
+        if (transform.position.y > 0)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
+            transform.position = new Vector2(transform.position.x, 0);
+        }
+        else if (transform.position.y < verticalScreenLimit)
+        {
+            transform.position = new Vector2(transform.position.x, verticalScreenLimit);
+
         }
 
     }
